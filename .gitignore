@@ -1,1 +1,10 @@
-./test/*, read.py, read_.py, write_.py, where_mouse.py
+# testing
+
+./test/*
+read.py
+read_.py
+write_.py
+
+# tools
+
+where_mouse.py
