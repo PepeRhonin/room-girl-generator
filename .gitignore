@@ -13,3 +13,7 @@ where_mouse.py
 
 notes
 game-location.txt
+
+# cache
+
+__pycache__/
