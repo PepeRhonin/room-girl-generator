@@ -1,8 +1,6 @@
 import shutil
 file_source = 'C:/Stuff/Room-Girl_/UserData/chara/female/modified-0.png'
-file_destination = 'C:/Users/ivank/Desktop/RG_test/modified-0.png'
-
-# shutil.copy(file_source, file_destination)
+file_destination = 'C:/Users/ivank/Desktop/RG_test/src/modified-0.png'
 
 
 def foo(c):
@@ -42,19 +40,19 @@ def process(data):
     return result
 
 
-f_in = open('test-0.png', 'rb')
+f_in = open('src/test-0.png', 'rb')
 data_1 = f_in.read()
 f_in.close()
 
-f_out = open('out-0.txt', 'w')
+f_out = open('test/out-0.txt', 'w')
 f_out.write(str(process(data_1)))
 f_out.close()
 
-f_in = open('test-1.png', 'rb')
+f_in = open('src/test-1.png', 'rb')
 data_1 = f_in.read()
 f_in.close()
 
-f_out = open('out-1.txt', 'w')
+f_out = open('test/out-1.txt', 'w')
 f_out.write(str(process(data_1)))
 f_out.close()
 

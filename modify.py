@@ -25,6 +25,28 @@ def randomRGB(mean_red=127, mean_green=127, mean_blue=127, mean_alpha=100, devia
     return ColorRGB(red, green, blue, alpha)
 
 
+def HSVtoRGB(H, S, V, alpha=100):
+    S /= 100
+    V /= 100
+    C = V * S
+    X = C * (1 - abs((H / 60) % 2 - 1))
+    m = V - C
+    if (H < 60):
+        R_, G_, B_ = (C, X, 0)
+    elif (H < 120):
+        R_, G_, B_ = (X, C, 0)
+    elif (H < 180):
+        R_, G_, B_ = (0, C, X)
+    elif (H < 240):
+        R_, G_, B_ = (0, X, C)
+    elif (H < 300):
+        R_, G_, B_ = (X, 0, C)
+    else:
+        R_, G_, B_ = (C, 0, X)
+    R, G, B = (int((R_ + m) * 255), int((G_ + m) * 255), int((B_ + m) * 255))
+    return ColorRGB(R, G, B, alpha)
+
+
 def writeNumericValue(data, index, value):
     keys = _values[str(value)].split(', ')
     for i in range(4):
@@ -309,14 +331,26 @@ def makeup(data, eyeshadow_id=17, eyeshadow_color=ColorRGB(81, 45, 45, 27), eyes
     writeNumericValue(data, i + 1, lip_glossiness)
 
 
-def hair(data, back_hair=0, bangs=0, base_color=ColorRGB(71, 59, 50), top_color=ColorRGB(33, 28, 23), under_color=ColorRGB(141, 128, 117), specular_color=ColorRGB(115, 96, 80), metalness=40, smoothness=20, randomize=False, deviation=1.0):
+def hair(data, back_hair=0, bangs=0, base_color=HSVtoRGB(11, 24, 29), top_color=ColorRGB(33, 28, 23), under_color=ColorRGB(141, 128, 117), specular_color=ColorRGB(115, 96, 80), metalness=40, smoothness=20, randomize=False, deviation=1.0):
     if (randomize):
         back_hair = rand(61)
         bangs = rand(44)
-        base_color = randomRGB(71, 59, 50, 100, 30 * deviation)
-        top_color = randomRGB(33, 28, 23, 100, 30 * deviation)
-        under_color = randomRGB(141, 128, 117, 100, 30 * deviation)
-        specular_color = randomRGB(115, 96, 80, 100, 30 * deviation)
+        base_hue = normalRandom(20, 18 * deviation * deviation, 0, 360)
+        base_saturation = normalRandom(30, 15 * deviation)
+        base_value = normalRandom(43, 35 * deviation)
+        base_color = HSVtoRGB(base_hue, base_saturation, base_value)
+        hue = normalRandom(base_hue, 7 * deviation * deviation, 0, 360)
+        saturation = normalRandom(base_saturation, 20 * deviation * deviation)
+        value = normalRandom(base_value + 20, 10 * deviation)
+        top_color = HSVtoRGB(hue, saturation, value)
+        hue = normalRandom(base_hue, 7 * deviation * deviation, 0, 360)
+        saturation = normalRandom(base_saturation, 20 * deviation * deviation)
+        value = normalRandom(base_value, 10 * deviation)
+        under_color = HSVtoRGB(hue, saturation, value)
+        hue = normalRandom(base_hue, 7 * deviation * deviation, 0, 360)
+        saturation = normalRandom(base_saturation, 20 * deviation * deviation)
+        value = normalRandom(base_value + 30, 10 * deviation)
+        specular_color = HSVtoRGB(hue, saturation, value)
         smoothness = normalRandom(20, 30 * deviation)
         metalness = normalRandom(40, 30 * deviation)
     i = 0
