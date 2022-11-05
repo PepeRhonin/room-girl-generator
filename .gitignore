@@ -1,6 +1,6 @@
 # testing
 
-./test/*
+./test/
 read.py
 read_.py
 write_.py
