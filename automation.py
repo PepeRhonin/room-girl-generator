@@ -92,6 +92,10 @@ class ColorRGB:
         self.Blue = blue
         self.alpha = alpha
 
+    def __iter__(self):
+        for attr in self.__dict__.values():
+            yield attr
+
 
 class Setting:
 
